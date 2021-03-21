@@ -9,7 +9,8 @@ function App() {
   const [pokemon, setPokemon] = useState([]);
   const [limit, setLimit] = useState(40);
   const [detail, setDetail] = useState({
-    abilities:[]
+    abilities:[],
+    moves:[]
   })
 
   useEffect(()=>{
