@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import "./pokemon.css";
 
 
 const PokemonList = ({pokemon, onClick}) => {
@@ -9,7 +10,7 @@ const PokemonList = ({pokemon, onClick}) => {
                 {pokemon.map((item,i) =>(
                 <Link to="/details" key = {item.url}>
 
-                    <li key = {i} onClick={()=>onClick(item.url)}>{item.name}</li>
+                    <li className = "list" key = {i} onClick={()=>onClick(item.url)}>{item.name}</li>
                 </Link>
                 
                 ))}

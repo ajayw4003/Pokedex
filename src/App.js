@@ -65,7 +65,7 @@ function App() {
 
   return (
     <div className="pokemon">
-    <h1>Pokedex</h1>
+    <h1 className ="title">Pokedex</h1>
     
     
     
