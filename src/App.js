@@ -1,17 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import './App.css';
-import Details from './Component/Details';
-import PokemonList from './Component/PokemonList';
+import Details from './Component/Details/Details';
+import PokemonList from './Component/PokemonList/PokemonList';
+import Pagination from "./Component/Pagination";
 
 
 function App() {
   const [pokemon, setPokemon] = useState([]);
-  const [limit, setLimit] = useState(40);
+  const [limit] = useState(100);
   const [detail, setDetail] = useState({
     abilities:[],
     moves:[]
-  })
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [listPerPage] = useState(10);
 
   useEffect(()=>{
 
@@ -25,17 +28,27 @@ function App() {
       });
     }
     getPokemon();
-    window.addEventListener('scroll', () =>{
-      if(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight){
-        setLimit(limit + 10)
-      }
-    })
+    // window.addEventListener('scroll', () =>{
+    //   if(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight){
+    //     setLimit(limit + 10)
+    //   }
+    // })
     return () => {
-      window.removeEventListener('scroll', ()=>{});
+      // window.removeEventListener('scroll', ()=>{});
     }
     
 
-  }, [limit])
+  },[limit])
+  console.log(pokemon);
+
+  const paginate =(number) => {
+    setCurrentPage(number);
+    console.log("Paginate me");
+  }
+
+  const indexOfLastList = currentPage*listPerPage;
+  const indexOfFirstList =   indexOfLastList-listPerPage;
+  const currentLists = pokemon.slice(indexOfFirstList, indexOfLastList); 
     
   const handleClick =(item)=>{
     fetch(item)
@@ -47,15 +60,25 @@ function App() {
     })
   }
   console.log(detail.abilities);
+  console.log(pokemon.length);
+
 
   return (
     <div className="pokemon">
-    <h1>Pokemon</h1>
+    <h1>Pokedex</h1>
+    
     
     
     <BrowserRouter>
       <Switch>
-        <Route path ="/" exact><PokemonList pokemon= {pokemon} onClick = {handleClick}/></Route>
+        <Route path ="/" exact>
+        <div>
+          <h2>Click on Pokemon to get details</h2>
+          <PokemonList pokemon= {currentLists} onClick = {handleClick}/>
+          <Pagination listPerPage = {listPerPage} totalList ={limit} paginate={paginate}/>
+        </div>
+        </Route>
+
         <Route path = "/details"><Details detail = {detail}/></Route>
       </Switch>
     </BrowserRouter>
