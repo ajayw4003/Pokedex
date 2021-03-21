@@ -1,9 +1,10 @@
 import React from 'react';
 import "./detail.css";
 
-const Details = ({detail}) => {
+const Details = ({detail, name1}) => {
     return (
         <div>
+            <h2 className ="pokName">Name - {name1}</h2>
             <div ><div className = "ability">Abilities:</div>
             <ol>
                 {detail.abilities.map((ability, i)=>(
@@ -12,7 +13,7 @@ const Details = ({detail}) => {
             </ol>
             </div>
             <div ><span className ="ability">Height:</span> {detail.height}</div>
-            <div ><sapn className ="ability">Weight:</sapn> {detail.weight}</div>
+            <div ><span className ="ability">Weight:</span> {detail.weight}</div>
             <div><div className ="ability">Moves:</div>
                 <ol>
                     {detail.moves.map((move, i)=>(

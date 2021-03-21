@@ -13,6 +13,7 @@ function App() {
     abilities:[],
     moves:[]
   });
+  const [name1, setName] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [listPerPage] = useState(10);
 
@@ -41,6 +42,22 @@ function App() {
   },[limit])
   console.log(pokemon);
 
+   
+    
+  const handleClick = (item, getName) =>{
+    setName(getName);
+    fetch(item)
+    .then((response) => response.json())
+    .then((result) =>{
+      console.log(result);
+      setDetail(result);
+
+    });
+    
+  }
+  console.log(detail.abilities);
+  console.log(pokemon.length);
+
   const paginate =(number) => {
     setCurrentPage(number);
     console.log("Paginate me");
@@ -48,19 +65,7 @@ function App() {
 
   const indexOfLastList = currentPage*listPerPage;
   const indexOfFirstList =   indexOfLastList-listPerPage;
-  const currentLists = pokemon.slice(indexOfFirstList, indexOfLastList); 
-    
-  const handleClick =(item)=>{
-    fetch(item)
-    .then((response) => response.json())
-    .then((result) =>{
-      console.log(result);
-      setDetail(result);
-      console.log("I am Here");
-    })
-  }
-  console.log(detail.abilities);
-  console.log(pokemon.length);
+  const currentLists = pokemon.slice(indexOfFirstList, indexOfLastList);
 
 
   return (
@@ -72,14 +77,14 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path ="/" exact>
-        <div>
-          <h2>Click on Pokemon to get details</h2>
-          <PokemonList pokemon= {currentLists} onClick = {handleClick}/>
-          <Pagination listPerPage = {listPerPage} totalList ={limit} paginate={paginate}/>
-        </div>
+          <div>
+              <h2>Click on Pokemon to get details</h2>
+              <PokemonList pokemon= {currentLists} onClick = {handleClick}/>
+              <Pagination listPerPage = {listPerPage} totalList ={limit} paginate={paginate}/>
+          </div>
         </Route>
 
-        <Route path = "/details"><Details detail = {detail}/></Route>
+        <Route path = "/details"><Details detail = {detail} name1 ={name1}/></Route>
       </Switch>
     </BrowserRouter>
     </div>

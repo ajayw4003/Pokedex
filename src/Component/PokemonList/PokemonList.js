@@ -10,7 +10,12 @@ const PokemonList = ({pokemon, onClick}) => {
                 {pokemon.map((item,i) =>(
                 <Link to="/details" key = {item.url}>
 
-                    <li className = "list" key = {i} onClick={()=>onClick(item.url)}>{item.name}</li>
+                    <li className = "list" 
+                    key = {i} 
+                    onClick={()=>onClick(item.url, item.name)}
+                    >
+                        {item.name}
+                    </li>
                 </Link>
                 
                 ))}

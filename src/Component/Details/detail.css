@@ -2,3 +2,6 @@
     font-size: larger;
     font-weight: 500;
 }
+.pokName{
+    text-transform: capitalize;
+}
